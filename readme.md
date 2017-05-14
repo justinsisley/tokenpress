@@ -15,7 +15,7 @@
   <a href="https://www.npmjs.com/package/tokenpress"><img src="https://img.shields.io/npm/dm/tokenpress.svg?style=flat-square"></a>
 </p>
 
-> Note: This library is a very small abstraction on top of [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken).
+> Note: This library is a small abstraction on top of [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken).
 
 ## Quick Start
 
@@ -54,7 +54,7 @@ const { requireAuth } = tokenpress.middleware;
 router.get('/user/account', requireAuth, (req, res) => {
   // User is authenticated
   // req.jwt contains the decoded JWT
-  // Continuing from the above example...
+  // Continuing from the above example…
   const { username, role } = req.jwt;
 
   res.json({ username, role });
