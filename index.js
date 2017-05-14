@@ -1,6 +1,10 @@
-const jwt = require('jsonwebtoken');
+const jsonwebtoken = require('jsonwebtoken');
 
 const tokenpress = {
+  /*
+  secret: The secret key used to sign and verify JWTs
+  expiresIn: The expiration duration for the JWT in rauchg/ms format
+   */
   configure: ({ secret, expiresIn }) => {
     tokenpress._config = {
       secret,
@@ -24,7 +28,7 @@ const tokenpress = {
         return failed();
       }
 
-      return jwt.verify(token)
+      return jsonwebtoken.verify(token)
       .then((decodedToken) => {
         // eslint-disable-next-line no-param-reassign
         req.jwt = decodedToken;
@@ -41,7 +45,7 @@ const tokenpress = {
       const expiresIn = tokenpress._config.expiresIn;
 
       return new Promise((resolve, reject) => {
-        jwt.sign(payload, secret, { expiresIn }, (err, token) => {
+        jsonwebtoken.sign(payload, secret, { expiresIn }, (err, token) => {
           if (err) {
             return reject(err);
           }
@@ -55,7 +59,7 @@ const tokenpress = {
       const secret = tokenpress._config.secret;
 
       return new Promise((resolve, reject) => {
-        jwt.verify(token, secret, (err, decoded) => {
+        jsonwebtoken.verify(token, secret, (err, decoded) => {
           if (err) {
             return reject(err);
           }
