@@ -15,6 +15,8 @@
   <a href="https://www.npmjs.com/package/tokenpress"><img src="https://img.shields.io/npm/dm/tokenpress.svg?style=flat-square"></a>
 </p>
 
+> Note: This library is a very small abstraction on top of [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken).
+
 ## Quick Start
 
 ```bash
