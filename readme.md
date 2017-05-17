@@ -70,6 +70,8 @@ router.get('/user/account', requireAuth, (req, res) => {
 Optionally configure the key used when saving to localStorage. Defaults to `token`.
 
 ```javascript
+import tokenpress from 'tokenpress/browser';
+
 tokenpress.browser.configure({
   localStorageKey: 'custom-token-name',
 });
@@ -78,6 +80,8 @@ tokenpress.browser.configure({
 Save a token to localStorage:
 
 ```javascript
+import tokenpress from 'tokenpress/browser';
+
 mockFunctionToGetTokenFromServer().then((token) => {
   tokenpress.browser.save(token)
 });
@@ -86,6 +90,8 @@ mockFunctionToGetTokenFromServer().then((token) => {
 Retrieve a token from localStorage:
 
 ```javascript
+import tokenpress from 'tokenpress/browser';
+
 const token = tokenpress.browser.get();
 http.headers.authentication = token;
 ```
@@ -93,6 +99,8 @@ http.headers.authentication = token;
 Delete a token from localStorage:
 
 ```javascript
+import tokenpress from 'tokenpress/browser';
+
 const token = tokenpress.browser.delete();
 console.log(tokenpress.browser.get()); // null
 ```

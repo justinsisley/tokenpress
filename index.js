@@ -5,8 +5,6 @@ let config = {
   secret: null,
   // String describing a time span zeit/ms. Eg: 60, "2 days", "10h", "7d"
   expiresIn: null,
-  // Key used to save the JWT to the browser's localStorage
-  localStorageKey: 'token',
 };
 
 const tokenpress = {
@@ -94,26 +92,6 @@ const tokenpress = {
           });
         });
       },
-    },
-  },
-
-  browser: {
-    configure: ({ localStorageKey }) => {
-      config = Object.assign({}, config, {
-        localStorageKey,
-      });
-    },
-
-    save(token) {
-      window.localStorage.setItem(config.localStorageKey, token);
-    },
-
-    get() {
-      return window.localStorage.getItem(config.localStorageKey);
-    },
-
-    delete() {
-      window.localStorage.removeItem(config.localStorageKey);
     },
   },
 };
