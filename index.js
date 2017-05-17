@@ -1,5 +1,8 @@
 const jsonwebtoken = require('jsonwebtoken');
 
+// Key used for storing JWTs to localStorage
+const TOKEN_KEY = 'token';
+
 let config = {};
 
 const tokenpress = {
@@ -73,6 +76,20 @@ const tokenpress = {
           return resolve(decoded);
         });
       });
+    },
+  },
+
+  localStorage: {
+    save(token) {
+      window.localStorage.setItem(TOKEN_KEY, token);
+    },
+
+    get() {
+      return window.localStorage.getItem(TOKEN_KEY);
+    },
+
+    delete() {
+      window.localStorage.removeItem(TOKEN_KEY);
     },
   },
 };

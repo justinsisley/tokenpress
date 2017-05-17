@@ -23,12 +23,16 @@
 npm install -s tokenpress
 ```
 
+## Node.js usage
+
 Configure tokenpress before using it:
 
 ```javascript
 tokenpress.configure({
-  secret: 'my_secret',
-  expiresIn: 1000 * 60 * 60, // token expiration in ms
+  // a string or buffer containing the secret for HMAC algorithms
+  secret: 'CHANGE_THIS_SECRET',
+  // expressed in seconds or a string describing a time span zeit/ms. Eg: 60, "2 days", "10h", "7d"
+  expiresIn: '30 days',
 });
 ```
 
@@ -59,6 +63,30 @@ router.get('/user/account', requireAuth, (req, res) => {
 
   res.json({ username, role });
 });
+```
+
+## Browser usage
+
+Save a token to localStorage:
+
+```javascript
+mockFunctionToGetTokenFromServer().then((token) => {
+  tokenpress.localStorage.save(token)
+});
+```
+
+Retrieve a token from localStorage:
+
+```javascript
+const token = tokenpress.localStorage.get();
+http.headers.authetication = token;
+```
+
+Delete a token from localStorage:
+
+```javascript
+const token = tokenpress.localStorage.delete();
+console.log(tokenpress.localStorage.get()); // null
 ```
 
 Icon by [Flaticon](http://www.flaticon.com/)
