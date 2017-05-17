@@ -28,7 +28,7 @@ const tokenpress = {
         return failed();
       }
 
-      return jsonwebtoken.verify(token)
+      return jsonwebtoken.verify(token, tokenpress._config.secret)
       .then((decodedToken) => {
         // eslint-disable-next-line no-param-reassign
         req.jwt = decodedToken;
