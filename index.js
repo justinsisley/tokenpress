@@ -20,6 +20,10 @@ const tokenpress = {
 
     middleware: {
       requireAuth(req, res, next) {
+        if (!config.secret) {
+          throw new Error('missing tokenpress secret');
+        }
+
         const failed = () => res.status(401).json({});
 
         // Allow query parameter auth token, which takes precedence over headers
@@ -51,6 +55,14 @@ const tokenpress = {
 
     jwt: {
       sign(payload) {
+        if (!config.secret) {
+          throw new Error('missing tokenpress secret');
+        }
+
+        if (!config.expiresIn) {
+          throw new Error('missing tokenpress expiresIn');
+        }
+
         const secret = config.secret;
         const expiresIn = config.expiresIn;
 
@@ -66,6 +78,10 @@ const tokenpress = {
       },
 
       verify(token) {
+        if (!config.secret) {
+          throw new Error('missing tokenpress secret');
+        }
+
         const secret = config.secret;
 
         return new Promise((resolve, reject) => {
