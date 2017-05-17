@@ -15,8 +15,6 @@
   <a href="https://www.npmjs.com/package/tokenpress"><img src="https://img.shields.io/npm/dm/tokenpress.svg?style=flat-square"></a>
 </p>
 
-> Note: This library is a small abstraction on top of [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken).
-
 ## Quick Start
 
 ```bash
@@ -28,10 +26,10 @@ npm install -s tokenpress
 Configure tokenpress before using it:
 
 ```javascript
-tokenpress.configure({
-  // a string or buffer containing the secret for HMAC algorithms
+tokenpress.node.configure({
+  // String or buffer containing the secret for HMAC algorithms
   secret: 'CHANGE_THIS_SECRET',
-  // expressed in seconds or a string describing a time span zeit/ms. Eg: 60, "2 days", "10h", "7d"
+  // String describing a time span zeit/ms. Eg: 60, "2 days", "10h", "7d"
   expiresIn: '30 days',
 });
 ```
@@ -39,9 +37,11 @@ tokenpress.configure({
 Sign a token:
 
 ```javascript
+const { jwt } = tokenpress.node;
+
 // Simple but dangerous example of issuing a token
 router.get('/token/:username', (req, res) => {
-  const token = tokenpress.jwt.sign({
+  const token = jwt.sign({
     username: req.params.username,
     role: 'USER',
   });
@@ -53,7 +53,7 @@ router.get('/token/:username', (req, res) => {
 Use tokenpress middleware to require authentication for a route:
 
 ```javascript
-const { requireAuth } = tokenpress.middleware;
+const { requireAuth } = tokenpress.node.middleware;
 
 router.get('/user/account', requireAuth, (req, res) => {
   // User is authenticated
@@ -67,26 +67,37 @@ router.get('/user/account', requireAuth, (req, res) => {
 
 ## Browser usage
 
+Optionally configure the key used when saving to localStorage. Defaults to `token`.
+
+```javascript
+tokenpress.browser.configure({
+  localStorageKey: 'custom-token-name',
+});
+```
+
 Save a token to localStorage:
 
 ```javascript
 mockFunctionToGetTokenFromServer().then((token) => {
-  tokenpress.localStorage.save(token)
+  tokenpress.browser.save(token)
 });
 ```
 
 Retrieve a token from localStorage:
 
 ```javascript
-const token = tokenpress.localStorage.get();
-http.headers.authetication = token;
+const token = tokenpress.browser.get();
+http.headers.authentication = token;
 ```
 
 Delete a token from localStorage:
 
 ```javascript
-const token = tokenpress.localStorage.delete();
-console.log(tokenpress.localStorage.get()); // null
+const token = tokenpress.browser.delete();
+console.log(tokenpress.browser.get()); // null
 ```
 
-Icon by [Flaticon](http://www.flaticon.com/)
+## Credits
+
+- Depends on [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
+- Icon by [Flaticon](http://www.flaticon.com/)

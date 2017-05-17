@@ -1,95 +1,103 @@
 const jsonwebtoken = require('jsonwebtoken');
 
-// Key used for storing JWTs to localStorage
-const TOKEN_KEY = 'token';
-
-let config = {};
+let config = {
+  // String or buffer containing the secret for HMAC algorithms
+  secret: null,
+  // String describing a time span zeit/ms. Eg: 60, "2 days", "10h", "7d"
+  expiresIn: null,
+  // Key used to save the JWT to the browser's localStorage
+  localStorageKey: 'token',
+};
 
 const tokenpress = {
-  /*
-  secret: The secret key used to sign and verify JWTs
-  expiresIn: The expiration duration for the JWT in rauchg/ms format
-   */
-  configure: ({ secret, expiresIn }) => {
-    config = {
-      secret,
-      expiresIn,
-    };
-  },
+  node: {
+    configure: ({ secret, expiresIn }) => {
+      config = Object.assign({}, config, {
+        secret,
+        expiresIn,
+      });
+    },
 
-  middleware: {
-    requireAuth(req, res, next) {
-      const failed = () => res.status(401).json({});
+    middleware: {
+      requireAuth(req, res, next) {
+        const failed = () => res.status(401).json({});
 
-      // Allow query parameter auth token, which takes precedence over headers
-      const queryToken = req.query.token;
-      if (queryToken) {
-        // eslint-disable-next-line
-        req.headers.authorization = queryToken;
-      }
+        // Allow query parameter auth token, which takes precedence over headers
+        const queryToken = req.query.token;
+        if (queryToken) {
+          // eslint-disable-next-line
+          req.headers.authorization = queryToken;
+        }
 
-      const token = req.headers.authorization;
-      if (!token) {
-        failed();
-        return;
-      }
-
-      jsonwebtoken.verify(token, config.secret, (err, decodedToken) => {
-        if (err) {
+        const token = req.headers.authorization;
+        if (!token) {
           failed();
           return;
         }
 
-        // eslint-disable-next-line no-param-reassign
-        req.jwt = decodedToken;
+        jsonwebtoken.verify(token, config.secret, (err, decodedToken) => {
+          if (err) {
+            failed();
+            return;
+          }
 
-        next();
-      });
+          // eslint-disable-next-line no-param-reassign
+          req.jwt = decodedToken;
+
+          next();
+        });
+      },
+    },
+
+    jwt: {
+      sign(payload) {
+        const secret = config.secret;
+        const expiresIn = config.expiresIn;
+
+        return new Promise((resolve, reject) => {
+          jsonwebtoken.sign(payload, secret, { expiresIn }, (err, token) => {
+            if (err) {
+              return reject(err);
+            }
+
+            return resolve(token);
+          });
+        });
+      },
+
+      verify(token) {
+        const secret = config.secret;
+
+        return new Promise((resolve, reject) => {
+          jsonwebtoken.verify(token, secret, (err, decoded) => {
+            if (err) {
+              return reject(err);
+            }
+
+            return resolve(decoded);
+          });
+        });
+      },
     },
   },
 
-  jwt: {
-    sign(payload) {
-      const secret = config.secret;
-      const expiresIn = config.expiresIn;
-
-      return new Promise((resolve, reject) => {
-        jsonwebtoken.sign(payload, secret, { expiresIn }, (err, token) => {
-          if (err) {
-            return reject(err);
-          }
-
-          return resolve(token);
-        });
+  browser: {
+    configure: ({ localStorageKey }) => {
+      config = Object.assign({}, config, {
+        localStorageKey,
       });
     },
 
-    verify(token) {
-      const secret = config.secret;
-
-      return new Promise((resolve, reject) => {
-        jsonwebtoken.verify(token, secret, (err, decoded) => {
-          if (err) {
-            return reject(err);
-          }
-
-          return resolve(decoded);
-        });
-      });
-    },
-  },
-
-  localStorage: {
     save(token) {
-      window.localStorage.setItem(TOKEN_KEY, token);
+      window.localStorage.setItem(config.localStorageKey, token);
     },
 
     get() {
-      return window.localStorage.getItem(TOKEN_KEY);
+      return window.localStorage.getItem(config.localStorageKey);
     },
 
     delete() {
-      window.localStorage.removeItem(TOKEN_KEY);
+      window.localStorage.removeItem(config.localStorageKey);
     },
   },
 };
