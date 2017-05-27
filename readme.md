@@ -65,6 +65,18 @@ router.get('/user/account', requireAuth, (req, res) => {
 });
 ```
 
+Generate a random, base64-encoded UUID string containing only URL-safe characters:
+
+```javascript
+const { getURLSafeToken } = tokenpress.node.string;
+
+router.get('/randomToken', (req, res) => {
+  const token = getURLSafeToken();
+
+  res.json({ token });
+});
+```
+
 ## Browser usage
 
 Optionally configure the key used when saving to localStorage. Defaults to `token`.
