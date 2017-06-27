@@ -52,6 +52,8 @@ router.get('/token/:username', (req, res) => {
 
 Use tokenpress middleware to require authentication for a route:
 
+> Note: If the authentication check fails, a 401 (unauthorized) response will be sent as JSON. The response will contain an `error` property that will equal either `EXPIRED_TOKEN` or `INVALID_TOKEN`. `INVALID_TOKEN` can be caused by any of the conditions listed in the [jsonwebtoken docs](https://github.com/auth0/node-jsonwebtoken#jsonwebtokenerror).
+
 ```javascript
 const { requireAuth } = tokenpress.node.middleware;
 
