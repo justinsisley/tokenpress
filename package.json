@@ -1,6 +1,6 @@
 {
   "name": "tokenpress",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "An Express.js JWT utility belt",
   "main": "index.js",
   "repository": "https://github.com/justinsisley/tokenpress",
