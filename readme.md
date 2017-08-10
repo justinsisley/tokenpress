@@ -27,10 +27,13 @@ Configure tokenpress before using it:
 
 ```javascript
 tokenpress.node.configure({
-  // String or buffer containing the secret for HMAC algorithms
+  // Required: string or buffer containing the secret for HMAC algorithms
   secret: 'CHANGE_THIS_SECRET',
-  // String describing a time span zeit/ms. Eg: 60, "2 days", "10h", "7d"
+  // Required: string describing a time span zeit/ms. Eg: 60, "2 days", "10h", "7d"
   expiresIn: '30 days',
+  // Optional: Minimum and maximum token lengths for getURLSafeToken utility
+  minTokenLength: 30,
+  maxTokenLength: 50,
 });
 ```
 
@@ -67,10 +70,10 @@ router.get('/user/account', requireAuth, (req, res) => {
 });
 ```
 
-Generate a random, base64-encoded UUID string containing only URL-safe characters:
+Generate a random, variable-length, hexadecimal string using the crypto.randomBytes function. The minumum length defaults to 30, and the maximum length defaults to 50.
 
 ```javascript
-const { getURLSafeToken } = tokenpress.node.string;
+const { getURLSafeToken } = tokenpress.node.utils;
 
 router.get('/randomToken', (req, res) => {
   const token = getURLSafeToken();
