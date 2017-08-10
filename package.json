@@ -1,6 +1,6 @@
 {
   "name": "tokenpress",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "description": "An Express.js JWT utility belt",
   "main": "index.js",
   "repository": "https://github.com/justinsisley/tokenpress",
@@ -15,8 +15,7 @@
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "eslint": "^3.19.0",
-    "eslint-config-mercenary": "^2.69.3",
-    "lerna": "^2.0.0"
+    "eslint-config-mercenary": "^2.69.3"
   },
   "dependencies": {
     "jsonwebtoken": "^7.4.2"
