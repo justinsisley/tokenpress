@@ -23,6 +23,29 @@ var tokenpress = {
     },
     delete: function _delete() {
       window.localStorage.removeItem(config.localStorageKey);
+    },
+    isExpired: function isExpired() {
+      var token = window.localStorage.getItem(config.localStorageKey);
+      if (!token) {
+        return true;
+      }
+
+      var split = token.split('.');
+      if (split.length < 3) {
+        return true;
+      }
+
+      var payload = split[1];
+      if (!payload.exp) {
+        return true;
+      }
+
+      var expiration = payload.exp;
+
+      var expTimestamp = +('' + expiration).padEnd(13, '0');
+      var nowTimestamp = Date.now();
+
+      return nowTimestamp > expTimestamp;
     }
   }
 };

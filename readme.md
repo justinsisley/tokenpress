@@ -7,7 +7,7 @@
 </h3>
 
 <p align="center">
-  An Express.js JWT Helper Library
+  A JWT utility belt for JavaScript applications
 </p>
 
 <p align="center">
@@ -120,6 +120,15 @@ import tokenpress from 'tokenpress/browser';
 
 const token = tokenpress.browser.delete();
 console.log(tokenpress.browser.get()); // null
+```
+
+Determine if a token is expired:
+
+```javascript
+import tokenpress from 'tokenpress/browser';
+
+const isTokenExpired = tokenpress.browser.isExpired();
+console.log(isTokenExpired); // true or false
 ```
 
 ## Credits
