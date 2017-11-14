@@ -35,8 +35,11 @@ var tokenpress = {
         return true;
       }
 
-      var payload = split[1];
-      if (!payload.exp) {
+      var payload = void 0;
+      try {
+        payload = JSON.parse(atob(split[1]));
+      } catch (error) {}
+      if (!payload || !payload.exp) {
         return true;
       }
 
