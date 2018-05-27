@@ -38,7 +38,7 @@ var tokenpress = {
       var payload = void 0;
       try {
         payload = JSON.parse(atob(split[1]));
-      } catch (error) {}
+      } catch (error) {/* no-op */}
       if (!payload || !payload.exp) {
         return true;
       }
@@ -49,6 +49,19 @@ var tokenpress = {
       var nowTimestamp = Date.now();
 
       return nowTimestamp > expTimestamp;
+    },
+    decode: function decode(token) {
+      if (!token || !token.split) return null;
+
+      var split = token.split('.');
+      if (split.length < 3) return null;
+
+      var payload = null;
+      try {
+        payload = JSON.parse(atob(split[1]));
+      } catch (error) {/* no-op */}
+
+      return payload;
     }
   }
 };
