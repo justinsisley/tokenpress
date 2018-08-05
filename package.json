@@ -8,7 +8,9 @@
     "build": "babel ./lib/browser.js --out-file browser.js",
     "prepare": "npm run build",
     "lint": "eslint --fix ./lib",
-    "test": "jest --testURL=http://localhost"
+    "test": "jest --testURL=http://localhost",
+    "commit": "dutchie --commit",
+    "release": "dutchie --release"
   },
   "author": "Justin Sisley",
   "license": "MIT",
@@ -20,6 +22,7 @@
     "@babel/core": "^7.0.0-beta.56",
     "@babel/preset-env": "^7.0.0-beta.56",
     "babel-core": "^7.0.0-bridge.0",
+    "dutchie": "^1.0.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
