@@ -26,6 +26,7 @@
   - [Contributing](#contributing)
     - [Linting](#linting)
     - [Testing](#testing)
+- [Releases](https://github.com/justinsisley/tokenpress/blob/master/CHANGELOG.md)
 - [Credits](#credits)
 
 # Features
