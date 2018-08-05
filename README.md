@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/release/justinsisley/tokenpress.svg?style=for-the-badge" alt="GitHub release" /> <img src="https://img.shields.io/circleci/project/github/justinsisley/tokenpress.svg?style=for-the-badge" alt="CircleCI" /> <img src="https://img.shields.io/github/license/justinsisley/tokenpress.svg?style=for-the-badge" alt="license" />
+  <a href="https://github.com/justinsisley/tokenpress/blob/master/CHANGELOG.md"><img src="https://img.shields.io/github/release/justinsisley/tokenpress.svg?style=for-the-badge" alt="GitHub release" /></a> <a href="https://circleci.com/gh/justinsisley/tokenpress"><img src="https://img.shields.io/circleci/project/github/justinsisley/tokenpress.svg?style=for-the-badge" alt="CircleCI" /></a> <a href="https://github.com/justinsisley/tokenpress/blob/master/LICENSE"><img src="https://img.shields.io/github/license/justinsisley/tokenpress.svg?style=for-the-badge" alt="license" /></a>
 </p>
 
 ---
