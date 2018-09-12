@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.0
+
+- __build:__ Updated dependencies [fa43f64]
+- __feat:__ Allow usage of sessionStorage as opposed to localStorage in browser [76dfd70]
+
+
 ## v2.0.1
 
 - __docs:__ Updated badge links [c2f65bf]
