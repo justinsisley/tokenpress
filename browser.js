@@ -1,26 +1,33 @@
 "use strict";
 
 var config = {
-  localStorageKey: 'token'
+  storageKey: 'token',
+  useSessionStorage: false
 };
+var storage = 'localStorage';
 var tokenpress = {
   configure: function configure(_ref) {
-    var localStorageKey = _ref.localStorageKey;
+    var storageKey = _ref.storageKey,
+        useSessionStorage = _ref.useSessionStorage;
     config = Object.assign({}, config, {
-      localStorageKey: localStorageKey
+      storageKey: storageKey
     });
+
+    if (useSessionStorage) {
+      storage = 'sessionStorage';
+    }
   },
   save: function save(token) {
-    window.localStorage.setItem(config.localStorageKey, token);
+    window[storage].setItem(config.storageKey, token);
   },
   get: function get() {
-    return window.localStorage.getItem(config.localStorageKey);
+    return window[storage].getItem(config.storageKey);
   },
   delete: function _delete() {
-    window.localStorage.removeItem(config.localStorageKey);
+    window[storage].removeItem(config.storageKey);
   },
   isExpired: function isExpired() {
-    var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window.localStorage.getItem(config.localStorageKey);
+    var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window[storage].getItem(config.storageKey);
 
     if (!token) {
       return true;
