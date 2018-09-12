@@ -98,17 +98,27 @@ const randomToken = tokenpress.utils.getURLSafeToken();
 
 ## Browser
 
-Optionally configure the key used when saving to localStorage. Defaults to `token`.
+Optionally configure whether to use sessionStorage as opposed to localStorage for storing tokens on the client. By default, localStorage will be used.
 
 ```javascript
 import tokenpress from 'tokenpress/browser';
 
 tokenpress.configure({
-  localStorageKey: 'custom-token-name',
+  useSessionStorage: true,
 });
 ```
 
-Save a token to localStorage:
+Optionally configure the key used when saving to localStorage or sessionStorage. Defaults to `token`.
+
+```javascript
+import tokenpress from 'tokenpress/browser';
+
+tokenpress.configure({
+  storageKey: 'custom-token-name',
+});
+```
+
+Save a token to localStorage/sessionStorage:
 
 ```javascript
 import tokenpress from 'tokenpress/browser';
@@ -118,7 +128,7 @@ mockFunctionToGetTokenFromServer().then((token) => {
 });
 ```
 
-Retrieve a token from localStorage:
+Retrieve a token from localStorage/sessionStorage:
 
 ```javascript
 import tokenpress from 'tokenpress/browser';
@@ -126,7 +136,7 @@ import tokenpress from 'tokenpress/browser';
 const token = tokenpress.get();
 ```
 
-Delete a token from localStorage:
+Delete a token from localStorage/sessionStorage:
 
 ```javascript
 import tokenpress from 'tokenpress/browser';
@@ -139,7 +149,7 @@ Determine if a token is expired:
 ```javascript
 import tokenpress from 'tokenpress/browser';
 
-// Will fetch token from localStorage by default
+// Will fetch token from localStorage/sessionStorage by default
 const isTokenExpired = tokenpress.isExpired();
 console.log(isTokenExpired); // true or false
 
