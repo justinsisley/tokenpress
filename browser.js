@@ -23,7 +23,7 @@ var tokenpress = {
   get: function get() {
     return window[storage].getItem(config.storageKey);
   },
-  delete: function _delete() {
+  "delete": function _delete() {
     window[storage].removeItem(config.storageKey);
   },
   isExpired: function isExpired() {
