@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.1
+
+- __build:__ Updated dependencies and fixed tests [a55ee6c]
+
+
 ## v2.1.0
 
 - __build:__ Updated dependencies [fa43f64]
