@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.2.0
+
+- __feat:__ Remove bearer prefix in auth header [d1761a7]
+
+
 ## v2.1.1
 
 - __build:__ Updated dependencies and fixed tests [a55ee6c]
