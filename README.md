@@ -72,6 +72,24 @@ const token = tokenpress.jwt.sign({
 });
 ```
 
+Verify a token using JWKS:
+
+```javascript
+const tokenpress = require('tokenpress');
+
+tokenpress.configure({
+  algorithms: ['RS256'],
+  audience: 'my audience',
+  issuer: `https://my-app.com/`,
+  jwksUri: `https://my-app.com/jwks.json`,
+});
+
+const someToken = 'blah.blah.blah';
+tokenpress.jwt.verifyWithJWKS(someToken).then((decodedJWT) => {
+  console.log(decodedJWT)
+});
+```
+
 Use tokenpress middleware to require authentication for a route:
 
 ```javascript
