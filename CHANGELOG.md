@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.3.0
+
+- __docs:__ Updated docs for JWKS [7c9c646]
+- __feat:__ Added verification using JWKS [f63c246]
+
+
 ## v2.2.0
 
 - __feat:__ Remove bearer prefix in auth header [d1761a7]
